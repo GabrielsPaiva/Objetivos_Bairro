@@ -9,6 +9,7 @@ import Work from "../assets/Work.png"
 import Peace from "../assets/Peace.png"
 import Energy from "../assets/Energy.png"
 import Starving from "../assets/Starving.png"
+import GoalsModal from '../component/GoalsModal';
 
 const Div = styled.div`
 display: flex;
@@ -38,22 +39,37 @@ export default function Main() {
         figures: [`${Poverty}`, `${Work}`, `${Peace}`, `${Energy}`, `${Starving}`],
         alts: ["bonecos representando uma família com um idoso, 3 adultos e 2 crianças", "gráfico com linha subindo", "passarinho segurando uma flor no bico, e pousado sobre um martelo de juíz", "representação de um sol com um botão de ligar no meio", "uma tigela com sopa saindo fumaça"],
     })
-    const [modal , setModal] = useState(false)
+    const [mappingNumbers] = useState([0, 1, 2, 3, 4])
 
-    console.log(modal)
+    const [modal, setModal] = useState(false)
+
+    const cardsLayoutMapping = () => {
+        return mappingNumbers.map((item, id) => (
+            <CardLayout key={id}
+                modalToggle={() => { setModal(!modal) }}
+                backgroundColor={cardsInfo.backgroundColors[item]}
+                number={cardsInfo.numbers[item]}
+                cardTitle={cardsInfo.titles[item]}
+                figure={cardsInfo.figures[item]}
+                alt={cardsInfo.alts[item]} />
+        ))
+    }
+
+    const MainsStructure = () => {
+        return (
+            <Div>
+                {modal && <GoalsModal modalToggle={()=>{setModal(false)}}/>}
+                <ContentBox>
+                    <MainInicialText />
+                    <CardsSection>
+                        {cardsLayoutMapping()}
+                    </CardsSection>
+                </ContentBox>
+            </Div>
+        )
+    }
+
     return (
-        <Div>
-            <ContentBox>
-                <MainInicialText />
-                <CardsSection>
-                    <CardLayout  backgroundColor={cardsInfo.backgroundColors[0]} number={cardsInfo.numbers[0]} cardTitle={cardsInfo.titles[0]} figure={cardsInfo.figures[0]} alt={cardsInfo.alts[0]} />
-                    <CardLayout backgroundColor={cardsInfo.backgroundColors[1]} number={cardsInfo.numbers[1]} cardTitle={cardsInfo.titles[1]} figure={cardsInfo.figures[1]} alt={cardsInfo.alts[1]} />
-                    <CardLayout backgroundColor={cardsInfo.backgroundColors[2]} number={cardsInfo.numbers[2]} cardTitle={cardsInfo.titles[2]} figure={cardsInfo.figures[2]} alt={cardsInfo.alts[2]} />
-                    <CardLayout backgroundColor={cardsInfo.backgroundColors[3]} number={cardsInfo.numbers[3]} cardTitle={cardsInfo.titles[3]} figure={cardsInfo.figures[3]} alt={cardsInfo.alts[3]} />
-                    <CardLayout backgroundColor={cardsInfo.backgroundColors[4]} number={cardsInfo.numbers[4]} cardTitle={cardsInfo.titles[4]} figure={cardsInfo.figures[4]} alt={cardsInfo.alts[4]} />
-                    <CardLayout backgroundColor={cardsInfo.backgroundColors[5]} number={cardsInfo.numbers[5]} cardTitle={cardsInfo.titles[5]} figure={cardsInfo.figures[5]} alt={cardsInfo.alts[5]} />
-                </CardsSection>
-            </ContentBox>
-        </Div>
-    );
+        MainsStructure()
+    )
 }

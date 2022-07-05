@@ -34,12 +34,10 @@ const Image = styled.img`
 width: 50%;
 `
 
-export default function CardLayout({ backgroundColor, number, cardTitle, figure, alt }) {
-
-
+export default function CardLayout({ backgroundColor, number, cardTitle, figure, alt, modalToggle }) {
 
     return (
-        <CardBox style={{backgroundColor: `${backgroundColor}`}}>
+        <CardBox onClick={()=>{modalToggle()}} style={{backgroundColor: `${backgroundColor}`}}>
             <UpperSide>
                 <CardNumber>{number}</CardNumber>
                 <CardTitle>{cardTitle}</CardTitle>
