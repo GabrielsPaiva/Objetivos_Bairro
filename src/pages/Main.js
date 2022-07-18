@@ -35,7 +35,7 @@ export default function Main() {
     const [cardsInfo] = useState({
         backgroundColors: ["#e5233b", "#a21a42", "#00689d", "#fbc30a", "#dca83a"],
         numbers: ["1", "2", "3", "4", "5"],
-        titles: ["erradicação da pobreza", "trabalho decente e crescimento econômico", "paz, justiça e instituições eficazes", "energia, limpa e acessível", "fome zero eagricultura sustentável"],
+        titles: ["erradicação da pobreza", "trabalho decente e crescimento econômico", "paz, justiça e instituições eficazes", "energia, limpa e acessível", "fome zero e agricultura sustentável"],
         figures: [`${Poverty}`, `${Work}`, `${Peace}`, `${Energy}`, `${Starving}`],
         alts: ["bonecos representando uma família com um idoso, 3 adultos e 2 crianças", "gráfico com linha subindo", "passarinho segurando uma flor no bico, e pousado sobre um martelo de juíz", "representação de um sol com um botão de ligar no meio", "uma tigela com sopa saindo fumaça"],
     })
@@ -55,16 +55,20 @@ export default function Main() {
         ))
     }
 
+    const goalsModalPropsInfo = () => {
+        return <GoalsModal modalToggle={() => { setModal(!modal) }} number={cardsInfo.numbers[0]} title={cardsInfo.titles[0]} alt={cardsInfo.alts[0]} figure={cardsInfo.figures[0]}/>
+    }
+
     const MainsStructure = () => {
         return (
             <Div>
-                {modal && <GoalsModal modalToggle={()=>{setModal(false)}}/>}
                 <ContentBox>
                     <MainInicialText />
                     <CardsSection>
                         {cardsLayoutMapping()}
                     </CardsSection>
                 </ContentBox>
+                {modal && goalsModalPropsInfo()}
             </Div>
         )
     }
