@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -85,11 +85,6 @@ margin-top: 10px;
 ` 
 
 export default function GoalsModal({ modalToggle, number, title, alt, figure }) {
-    const [description] = useState({
-        descriptions: [
-
-        ]
-    })
 
     const modalHeader = () => {
         return (
