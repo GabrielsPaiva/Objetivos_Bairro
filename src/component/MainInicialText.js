@@ -12,7 +12,6 @@ const Title = styled.h2`
 font-size: 2.6vw;
 `
 const TextDiv = styled.div`
-background-color: gray;
 width: 70.8%;
 height: max-content;
 margin-top: 2.5%;

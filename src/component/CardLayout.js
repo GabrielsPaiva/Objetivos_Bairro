@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+
+// JSON
+import Info from '../CardsInfo.json';
+import GoalsModal from './GoalsModal';
 
 const CardBox = styled.div`
 color: white;
@@ -16,11 +20,11 @@ width: 100%;
 height: 30%;
 `
 const CardNumber = styled.p`
-font-size: 2.1vw;
+font-size: 45px;
 margin: 0 5% 0 2.5%;
 `
 const CardTitle = styled.h2`
-font-size: 0.8vw;
+font-size: 15px;
 width: 79%;
 `
 const ImageBox = styled.div`
@@ -34,19 +38,27 @@ const Image = styled.img`
 width: 50%;
 `
 
-export default function CardLayout({ backgroundColor, number, cardTitle, figure, alt, modalToggle }) {
+export default function CardLayout({modalToggle}) {
 
-    
+    const [cardsInfo] = useState({ Info })
 
-    return (
-        <CardBox onClick={()=>{modalToggle()}} style={{backgroundColor: `${backgroundColor}`}}>
-            <UpperSide>
-                <CardNumber>{number}</CardNumber>
-                <CardTitle>{cardTitle}</CardTitle>
-            </UpperSide>
-            <ImageBox>
-                <Image src={figure} alt={alt} />
-            </ImageBox>
-        </CardBox>
-    );
+    const cardClickedPropValue = (id) => {
+        return <GoalsModal cardClicked={0}/>
+    }
+
+    const cardsLayoutMapping = () => {
+        return cardsInfo.Info.map((item, id) => (
+            <CardBox key={id} onClick={() => { modalToggle(); cardClickedPropValue(id) }} style={{ backgroundColor: `${item.backgroundColors}` }}>
+                <UpperSide>
+                    <CardNumber>{item.numbers}</CardNumber>
+                    <CardTitle>{item.titles}</CardTitle>
+                </UpperSide>
+                <ImageBox>
+                    <Image src={item.figures} alt={item.alts} />
+                </ImageBox>
+            </CardBox>
+        ))
+    }
+
+    return cardsLayoutMapping()
 }

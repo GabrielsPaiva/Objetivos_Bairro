@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+
+// JSON
+import Info from '../CardsInfo.json'
 
 const Div = styled.div`
 display: flex;
@@ -16,7 +19,6 @@ width: 60%;
 height: 100%;
 `
 const ModalHeader = styled.div`
-background-color: #e5233b;
 display: flex;
 align-items: center;
 width: 100%;
@@ -53,7 +55,8 @@ height: 100%;
 `
 const GoalImage = styled.img`
 margin-right: 1vw;
-width: 100%;
+width: 80%;
+height: 80%;
 `
 const ModalCloseButtonDiv = styled.div`
 height: 100%;
@@ -82,26 +85,30 @@ height: 100%;
 
 const Pa = styled.p`
 margin-top: 10px;
-` 
+`
 
-export default function GoalsModal({ modalToggle, number, title, alt, figure }) {
+export default function GoalsModal({ modalToggle, cardClicked }) {
+    const [modalInfo] = useState({ Info })
 
     const modalHeader = () => {
+
+        console.log(cardClicked)
+
         return (
-            <ModalHeader>
+            <ModalHeader style={{ backgroundColor: modalInfo.Info[0].backgroundColors}}>
                 <HeaderInfoBox>
                     <P>Objetivo de Desenvolvimento Sustentável</P>
-                    <GoalNumber>{number}</GoalNumber>
-                    <GoalTitle>{title}</GoalTitle>
+                    <GoalNumber>{modalInfo.Info[0].numbers}</GoalNumber>
+                    <GoalTitle>{modalInfo.Info[0].titles}</GoalTitle>
                     <GoalDescription>
                         Erradicar a pobreza em todas as formas e em todos os
                         lugares
                     </GoalDescription>
                 </HeaderInfoBox>
                 <ImageBox>
-                    <GoalImage src={figure} alt={alt} />
+                    <GoalImage src={modalInfo.Info[0].figures} alt={modalInfo.Info[0].alts} />
                     <ModalCloseButtonDiv>
-                        <ModalCloseButton onClick={()=>modalToggle()}>+</ModalCloseButton>
+                        <ModalCloseButton onClick={() => modalToggle()}>+</ModalCloseButton>
                     </ModalCloseButtonDiv>
                 </ImageBox>
             </ModalHeader>
@@ -110,9 +117,6 @@ export default function GoalsModal({ modalToggle, number, title, alt, figure }) 
     }
 
     const modalObjectives = () => {
-
-
-
         return (
             <ObjectivesDiv>
                 <ObjectivesList>
